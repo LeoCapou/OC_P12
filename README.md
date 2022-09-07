@@ -35,6 +35,36 @@ Celles-ci sont listées dans le document `requirement.txt` et leur installation 
 ```
 pip install -r requirements.txt
 ```
+3. Créer et configurer la base de donnée PostgreSQL
+
+  - Ouvrir pgAdmin4
+  - Cliquer sur Servers et choisir la version de PostgreSQL
+  - Créer une base donnée avec pour nom "OC_P12".
+  - Configurer la base de données dans le fichier `/CRM_Epic_Events/settings.py`
+      ```python
+      DATABASES = {
+          "default": {
+              "ENGINE": "django.db.backends.postgresql",
+              "NAME": "OC_P12",
+              "USER": "postgres",
+              "PASSWORD": "yourpassword",
+              "HOST": "localhost",
+              "PORT": "5432",
+          }
+      }
+      ```
+  
+      - **NAME** : le nom que vous avez défini dans pgAdmin4 (ici OC_P12)
+      - **USER** : le nom d'utilisateur (postgres par défaut)
+      - **PASSWORD** : le mot de passe de la base de données
+      - **HOST** : hôte de la base de données (localhost ou l'adresse IP 127.0.0.1 pour le développement)
+      - **PORT** : le port utilisé pour exécuter la base de données (5432 par défaut)
+  - Migrer les tables vers la base de données PostgreSQL avec les commandes suivants :
+      ```
+      python manage.py makemigrations
+      python manage.py migrate
+      ```      
+
 
 ## Exécution du programme
 
@@ -44,7 +74,8 @@ python3 manage.py runserver
 ```
 ## Tester les requêtes de l'API
 
-Utilisez Postman
+Utilisez Postman, les endpoints sont listés dans [cette documentation](https://documenter.getpostman.com/view/18296493/VVBRz7ay)
+
 
 
 ## Auteur
